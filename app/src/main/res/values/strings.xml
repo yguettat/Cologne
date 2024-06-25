@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Cologne</string>
+    <string name="foodDrink">Food &amp; Drink</string>
+    <string name="gaming">Gaming</string>
+    <string name="services">Services</string>
+    <string name="sport">Sport</string>
+    <string name="chinese">China Express</string>
+    <string name="chineseAddress">Severinstraße 65–67, 50678 Köln</string>
+    <string name="chineseDescription">It\'s been always my go to for chinese food. I go there really often. The staff are really nice and the restaurant is really chill</string>
+    <string name="italian">Trattoria Palermo Da Salvatore</string>
+    <string name="italianAddress">Severinstraße 151, 50678 Köln</string>
+    <string name="italianDescription">Basically the best place to eat Pizza at in Cologne. the pizze are very authentic and you can enjoy a birra moretti and feel as you are in Sicily</string>
+    <string name="gelato">Gelateria Cafeteria South</string>
+    <string name="gelatoAddress">Mainzer Str. 77, 50678 Köln</string>
+    <string name="gelatoDescription">Really authentic italian ice cream. I have tried several here and this one easily beats all in any sense. the gelato is prepared fresh daily and they have different flavors daily. I would recommend checking their website for the flavors before going, it\'s usually really full </string>
+    <string name="burger">Die Fette Kuh</string>
+    <string name="burgerAddress">Bonner Str. 43, 50677 Köln</string>
+    <string name="burgerDescription">Really delicious burger. Its price is a bit high, at least for me as a student, but if i really want a burger, i would definitely go there and have a nice meal</string>
+    <string name="bordgames1">Hiveworld</string>
+    <string name="boardgameAddress1">Hohe Str. 18, 50667 Köln</string>
+    <string name="boargameDescription1">this shop is generally good and they have a small selection in english. What makes this shop special is the weekly tournaments they host for different TCGs and you can also play Boardgames there.</string>
+    <string name="boardgames2">Brave New World</string>
+    <string name="boardgameAddress2">Herzogstraße 25, 50667 Köln</string>
+    <string name="boardgameDescription2">This shop has always been my fave shop in Cologne. I have bought several boardgames from here. The selection in german and in english is huge; you can easily spend a whole day there just looking. It is also in the middle of the city, highly recommend checking it out</string>
+    <string name="retro">Retrospiel</string>
+    <string name="retroAddress">Gladbacher Str. 33, 50672 Köln</string>
+    <string name="retroDescripton">As a retro game lover, I do have to recommend this to anyone who collects or just interested in seeing the older side of gaming. This shop has several consoles and games, even new ones. The owner is really nice and he also would repair for you some of your malfunctioning retro consoles.</string>
+    <string name="flink">Flink</string>
+    <string name="lieferando">Lieferando</string>
+    <string name="uber">Uber</string>
+    <string name="locationDetail">Location Detail</string>
+    <string name="defaultDescription">Klassisch: Data Plane und Control Plane müssen in jedem Gerät selbst implementiert sein.\n</string>
+
+
+</resources>
