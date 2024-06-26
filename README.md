@@ -6,4 +6,4 @@ To build this app, I have used
 - UiState
 - StateFlow
 - Navigation
-- (May make it adaptable for different screen sizes)
+- adaptable for different screen sizes
