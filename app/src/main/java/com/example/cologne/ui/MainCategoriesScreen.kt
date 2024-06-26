@@ -17,15 +17,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,10 +32,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.cologne.R
 import com.example.cologne.data.LocationsToRecommend
+import com.example.cologne.ui.utils.RecommendCategoryType
 
 enum class CologneAppScreens(@StringRes val title: Int) {
-    start(title = R.string.app_name),
-    foodDrink(title = R.string.foodDrink),
+    start( R.string.app_name),
+    foodDrink( R.string.foodDrink),
     gaming(R.string.gaming),
     sport(R.string.sport),
     services(R.string.services),
@@ -44,11 +44,19 @@ enum class CologneAppScreens(@StringRes val title: Int) {
 }
 @Composable
 fun MainCategoryScreen(
+    modifier: Modifier = Modifier,
+    windowSize: WindowWidthSizeClass,
     viewModel: RecommendedViewModel = RecommendedViewModel(),
-    modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
+    val contentType: RecommendCategoryType
 
+    when (windowSize) {
+        WindowWidthSizeClass.Compact -> {contentType = RecommendCategoryType.LIST_ONLY}
+        WindowWidthSizeClass.Medium -> {contentType = RecommendCategoryType.LIST_AND_DETAIL}
+        WindowWidthSizeClass.Expanded -> {contentType = RecommendCategoryType.LIST_AND_DETAIL}
+        else -> contentType =RecommendCategoryType.LIST_ONLY
+    }
     Scaffold (
         topBar = { CologneAppBar(navController)}
     ) { innerPadding -> val uiState by viewModel.uiState.collectAsState()
@@ -58,11 +66,13 @@ fun MainCategoryScreen(
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-                    modifier = modifier.padding(innerPadding)
+                    modifier = modifier
+                        .padding(innerPadding)
                         .fillMaxHeight(),
                 ) {
                     Row(
-                        modifier = modifier.fillMaxWidth()
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = modifier.fillMaxWidth(),
                     ) {
                         Button(
                             onClick = {
@@ -72,6 +82,7 @@ fun MainCategoryScreen(
                             Modifier
                                 .weight(1f)
                                 .padding(horizontal = 16.dp)
+
                         ) {
                             Text(
                                 stringResource(id = R.string.foodDrink),
@@ -93,7 +104,10 @@ fun MainCategoryScreen(
                         }
                     }
                     Row(
-                        modifier = modifier.fillMaxWidth()
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp)
                     ) {
                         Button(
                             onClick = {
@@ -126,29 +140,53 @@ fun MainCategoryScreen(
                 }
             }
             composable(CologneAppScreens.foodDrink.name) {
-                FoodDrinkScreen(
-                    locations = LocationsToRecommend.foodDrinkLocations,
-                    onClick = {
-                        viewModel.updateCurrentRecommendation(it)
-                        navController.navigate(CologneAppScreens.locationDetail.name)
-                    },
-                    modifier = Modifier.padding(innerPadding)
-                )
+                if (contentType == RecommendCategoryType.LIST_ONLY) {
+                    FoodDrinkScreen(
+                        locations = LocationsToRecommend.foodDrinkLocations,
+                        onClick = {
+                            viewModel.updateCurrentRecommendation(it)
+                            navController.navigate(CologneAppScreens.locationDetail.name)
+                        },
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                } else {
+                    FoodDrinkListAndDetailScreen(
+                        locations = uiState.foodDrinkList,
+                        selectedLocation = uiState.currentRecommendedFoodDrink,
+                        onClick = {
+                            viewModel.updateCurrentRecommendation(it)
+                            //navController.navigate(CologneAppScreens.locationDetail.name)
+                        },
+                        modifier = Modifier.padding(innerPadding)
+                        )
+                }
             }
             composable(CologneAppScreens.gaming.name) {
-                GamingScreen(
-                    locations = LocationsToRecommend.gamingLocations,
-                    onClick = {
-                        viewModel.updateCurrentRecommendation(it)
-                        navController.navigate(CologneAppScreens.locationDetail.name)
-                    },
-                    modifier = Modifier.padding(innerPadding)
-                )
+                if (contentType == RecommendCategoryType.LIST_ONLY) {
+                    GamingScreen(
+                        locations = LocationsToRecommend.gamingLocations,
+                        onClick = {
+                            viewModel.updateCurrentRecommendation(it)
+                            navController.navigate(CologneAppScreens.locationDetail.name)
+                        },
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                } else {
+                    GamingListAndDetailScreen(
+                        locations = uiState.gamingList,
+                        selectedLocation = uiState.currentRecommendedGaming,
+                        onClick = {
+                            viewModel.updateCurrentRecommendation(it)
+                            //navController.navigate(CologneAppScreens.locationDetail.name)
+                        },
+                        modifier = Modifier.padding(innerPadding),
+                        )
+                }
             }
             composable(CologneAppScreens.sport.name) {}
             composable(CologneAppScreens.services.name) {}
             composable(CologneAppScreens.locationDetail.name) {
-                var selectedLocation = uiState.currentRecommendation
+                val selectedLocation = uiState.currentRecommendation
                 if (selectedLocation != null) {
                     BaseLocationDetail(
                         selectedLocation,
@@ -160,12 +198,6 @@ fun MainCategoryScreen(
     }
 }
 
-@Composable
-private fun ShowDetail(
-    viewModel: RecommendedViewModel,
-
-    ) {
-}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CologneAppBar(navController: NavController) {

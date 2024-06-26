@@ -13,10 +13,24 @@ fun FoodDrinkScreen(
     onClick: (RecommendedLocation) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    BaseLocationDetail(
+    BaseLocationsList(
         locations = locations,
         onClick = onClick,
         modifier = modifier)
+}
+@Composable
+fun FoodDrinkListAndDetailScreen(
+    locations: List<RecommendedFoodDrink>,
+    selectedLocation: RecommendedLocation,
+    onClick: (RecommendedLocation) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    BaseLocationsAndDetail(
+        locations = locations,
+        selectedLocation = selectedLocation,
+        onClick = onClick,
+        modifier = modifier
+    )
 }
 
 @Preview

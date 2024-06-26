@@ -13,12 +13,26 @@ fun GamingScreen(
     onClick: (RecommendedLocation) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    BaseLocationDetail(
+    BaseLocationsList(
         locations = locations,
         onClick = onClick,
         modifier = modifier)
 }
 
+@Composable
+fun GamingListAndDetailScreen(
+    locations: List<RecommendedGaming>,
+    selectedLocation: RecommendedLocation,
+    onClick: (RecommendedLocation) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    BaseLocationsAndDetail(
+        locations = locations,
+        selectedLocation = selectedLocation,
+        onClick = onClick,
+        modifier = modifier
+    )
+}
 @Preview
 @Composable
 fun GamingScreenPreview() {

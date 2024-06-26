@@ -5,7 +5,6 @@ import com.example.cologne.model.RecommendedFoodDrink
 import com.example.cologne.model.RecommendedGaming
 
 object LocationsToRecommend {
-    //val defaultLocation = getLocations()[0]
 
     val foodDrinkLocations = listOf(
             RecommendedFoodDrink(
@@ -34,6 +33,7 @@ object LocationsToRecommend {
 
             ),
     )
+    val defaultFoodDrinkLocation = foodDrinkLocations[0]
 
     val gamingLocations = listOf (
         RecommendedGaming(
@@ -55,30 +55,7 @@ object LocationsToRecommend {
             locationDescription = R.string.retroDescripton
         ),
         )
+    val defaultGamingLocation = gamingLocations[0]
 
-            /*Recommendation(
-                id = 7,
-                locationName = ,
-                locationAddress = ,
-                locationPic =
-            ),
-            Recommendation(
-                id = 8,
-                locationName = ,
-                locationAddress = ,
-                locationPic =
-            ),
-            Recommendation(
-                id = 9,
-                locationName = ,
-                locationAddress = ,
-                locationPic =
-            ),
-            Recommendation(
-                id = 10,
-                locationName = ,
-                locationAddress = ,
-                locationPic =
-            ),
-             */
+
 }
