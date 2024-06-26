@@ -40,7 +40,9 @@ enum class CologneAppScreens(@StringRes val title: Int) {
     gaming(R.string.gaming),
     sport(R.string.sport),
     services(R.string.services),
-    locationDetail(R.string.locationDetail)
+    gamingLocationDetail(R.string.locationDetail),
+    foodDrinkLocationDetail(R.string.locationDetail)
+
 }
 @Composable
 fun MainCategoryScreen(
@@ -145,7 +147,7 @@ fun MainCategoryScreen(
                         locations = LocationsToRecommend.foodDrinkLocations,
                         onClick = {
                             viewModel.updateCurrentRecommendation(it)
-                            navController.navigate(CologneAppScreens.locationDetail.name)
+                            navController.navigate(CologneAppScreens.foodDrinkLocationDetail.name)
                         },
                         modifier = Modifier.padding(innerPadding)
                     )
@@ -155,7 +157,6 @@ fun MainCategoryScreen(
                         selectedLocation = uiState.currentRecommendedFoodDrink,
                         onClick = {
                             viewModel.updateCurrentRecommendation(it)
-                            //navController.navigate(CologneAppScreens.locationDetail.name)
                         },
                         modifier = Modifier.padding(innerPadding)
                         )
@@ -167,7 +168,7 @@ fun MainCategoryScreen(
                         locations = LocationsToRecommend.gamingLocations,
                         onClick = {
                             viewModel.updateCurrentRecommendation(it)
-                            navController.navigate(CologneAppScreens.locationDetail.name)
+                            navController.navigate(CologneAppScreens.gamingLocationDetail.name)
                         },
                         modifier = Modifier.padding(innerPadding)
                     )
@@ -177,7 +178,6 @@ fun MainCategoryScreen(
                         selectedLocation = uiState.currentRecommendedGaming,
                         onClick = {
                             viewModel.updateCurrentRecommendation(it)
-                            //navController.navigate(CologneAppScreens.locationDetail.name)
                         },
                         modifier = Modifier.padding(innerPadding),
                         )
@@ -185,14 +185,19 @@ fun MainCategoryScreen(
             }
             composable(CologneAppScreens.sport.name) {}
             composable(CologneAppScreens.services.name) {}
-            composable(CologneAppScreens.locationDetail.name) {
-                val selectedLocation = uiState.currentRecommendation
-                if (selectedLocation != null) {
-                    BaseLocationDetail(
-                        selectedLocation,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            composable(CologneAppScreens.foodDrinkLocationDetail.name) {
+                val selectedLocation = uiState.currentRecommendedFoodDrink
+                BaseLocationDetail(
+                    selectedLocation,
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
+            composable(CologneAppScreens.gamingLocationDetail.name) {
+                val selectedLocation = uiState.currentRecommendedGaming
+                BaseLocationDetail(
+                    selectedLocation,
+                    modifier = Modifier.padding(innerPadding)
+                )
             }
         }
     }
@@ -211,7 +216,8 @@ private fun CologneAppBar(navController: NavController) {
                 CologneAppScreens.gaming.name -> stringResource(id = R.string.gaming)
                 CologneAppScreens.sport.name -> stringResource(id = R.string.sport)
                 CologneAppScreens.services.name -> stringResource(id = R.string.services)
-                CologneAppScreens.locationDetail.name -> stringResource(id = R.string.locationDetail)
+                CologneAppScreens.gamingLocationDetail.name -> stringResource(id = R.string.locationDetail)
+                CologneAppScreens.foodDrinkLocationDetail.name -> stringResource(id = R.string.locationDetail)
                 else -> stringResource(id = R.string.app_name)
             }
             Text(text = title,
